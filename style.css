@@ -301,11 +301,65 @@ input[type="text"]{
 
 .typeButton{
     display:inline-block;
-    margin:3px;
+    margin:20px;
+    transition:all 0.2s ease;
+    box-shadow:
+    0 2px 4px rgba(0,0,0,0.25),
+    inset 0 1px 0 rgba(255,255,255,0.2);
 }
 
 .typeButton input{
     display:none;
+}
+
+
+.typeButton input:checked + span{
+    transform: scale(1.08) translateY(-2px);
+    box-shadow:
+        0 8px 16px rgba(0,0,0,0.45),
+        inset 0 2px 0 rgba(255,255,255,0.3);
+    border:2px solid rgba(255,255,255,0.35);
+    text-shadow:
+        0 2px 4px rgba(0,0,0,0.8);
+}
+
+
+
+.typeButton input[value="サモン"]:checked + span{
+    background:
+        linear-gradient(
+            rgba(0,0,0,0.05),
+            rgba(0,0,0,0.05)
+        ),
+        url("images/type-summon.png");
+    background-size:cover;
+    background-position:center;
+    color:white;
+}
+
+.typeButton input[value="マギア"]:checked + span{
+    background:
+        linear-gradient(
+            rgba(0,0,0,0.05),
+            rgba(0,0,0,0.05)
+        ),
+        url("images/type-magia.png");
+    background-size:cover;
+    background-position:center;
+    color:white;
+}
+
+
+.typeButton input[value="レジスト"]:checked + span{
+    background:
+        linear-gradient(
+            rgba(0,0,0,0.05),
+            rgba(0,0,0,0.05)
+        ),
+        url("images/type-resist.png");
+    background-size:cover;
+    background-position:center;
+    color:white;
 }
 
 
@@ -337,7 +391,7 @@ input[type="text"]{
 
 .costButton{
     display:inline-block;
-    margin:3px;
+    margin:10px;
 }
 
 .costButton input{
@@ -361,11 +415,15 @@ input[type="text"]{
 
 
 .costButton input:checked + span{
+    transform: scale(1.08) translateY(-2px);
     background:linear-gradient(
         to bottom,
         #8b7853,
         #5b4f34
     );
+        box-shadow:
+        0 8px 16px rgba(0,0,0,0.45),
+        inset 0 2px 0 rgba(255,255,255,0.3);
     color:#f7f2e8;
     border-color:#3f3624;
 }
@@ -410,7 +468,7 @@ input[type="text"]{
     left:0;
     right:0;
     bottom: 0;
-    width:95%;
+    width:93%;
     max-height:80vh;
     background:
     radial-gradient(circle at 20% 20%, rgba(120,90,40,.04), transparent 20%),
@@ -480,11 +538,16 @@ input[type="text"]{
     display:block;
     border-radius:10px;
     object-fit: cover;
-    border:2px solid #8b7853;
+    border:0px solid #8b7853;
     box-shadow:
     0 3px 8px rgba(0,0,0,.25);
 }
 
+
+#deck-list-screen{
+    padding-bottom:90px;
+    box-sizing:border-box;
+}
 
 
 .saved-deck-name{
@@ -507,6 +570,8 @@ input[type="text"]{
 .saved-deck-buttons button{
     padding:8px 12px;
 }
+
+
 
 .card-modal{
     display:none;
@@ -821,4 +886,42 @@ h3{
         #8b7853,
         #66563a
     );
+}
+
+#homepage-footer{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    height:70px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:rgba(91,79,52,0.95);
+    color:#f6f0e5;
+    font-size:30px;
+    font-weight:bold;
+    border-top:2px solid #8b7853;
+    box-shadow:0 -3px 8px rgba(0,0,0,.3);
+    z-index:999;
+}
+#homepage-footer a{
+    color:#ffe08a;
+    text-decoration:none;
+    margin-left:10px;
+}
+#homepage-footer a:hover{
+    text-decoration:underline;
+}
+
+
+
+.homepage-button{
+    padding:12px 24px;
+    border-radius:10px;
+    background:linear-gradient(to bottom,#c7a85d,#9d7a2d);
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+    box-shadow:0 3px 8px rgba(0,0,0,.3);
 }

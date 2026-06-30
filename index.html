@@ -6,6 +6,7 @@
     <meta name="theme-color" content="#6e4d22">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 <!-- =========================
      デッキ一覧画面
@@ -30,8 +31,16 @@
         onclick="createNewDeck()">
         ＋
     </button></div>
- 
+    
+    <div id="homepage-footer">
+        最新情報・ルールはこちら ▶
+        <a href="https://elementissummoner.webnode.jp/" target="_blank">
+            Elementis Summoner HP
+        </a>
+    </div>
+
 </div>
+
 <!-- =========================
      デッキ画像作成用Canvas
 ========================= -->
@@ -65,17 +74,21 @@
             画像を保存
         </button>
         <button
-            onclick="showBuilderScreen()"
-            class="deck-image-btn">
-            編集へ戻る
-        </button>
-        <button
             onclick="showDeckListScreen()"
             class="deck-image-btn">
             一覧へ戻る
         </button>
+        <button
+            onclick="showBuilderScreen()"
+            class="deck-image-btn">
+            編集へ戻る
+        </button>
+
     </div>
+
 </div>
+
+
 <!-- =========================
      編集画面（builder-screen）
      ↓ Part2 から続きます
@@ -287,6 +300,7 @@
 <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 <script src="https://unpkg.com/html5-qrcode"></script>
 <script src="https://unpkg.com/jsqr/dist/jsQR.js"></script>
+<script src="https://unpkg.com/@zwing/library@latest"></script>
 </body>
 </html>
 

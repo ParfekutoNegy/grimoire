@@ -760,7 +760,7 @@ function addToCandidate(){
             hasSameName(mainDeck, selectedData.name) ||
             hasSameName(sideDeck, selectedData.name)
         ){
-            alert("このカードはすでにデッキにあります。");
+            alert("このカードはデッキに登録済です。");
             closeCardModal();
             return;
         }
@@ -1047,7 +1047,9 @@ function generateQRCode(){
         canvas,
         json,
         {
-            width: 250
+            width: 400,
+            errorCorrectionLevel:"H",
+            margin:2
         },
         function(error){
             if(error){
@@ -1155,12 +1157,22 @@ async function exportDeckImage(){
     ctx.textAlign ="left";
     ctx.fillText("♦ SIDE DECK ♦",startX, sideStartY - 20);
 
+    const typeOrder = {
+        "サモン": 1,
+        "マギア": 2,
+        "レジスト": 3
+    };
+    const sortedSideDeck = sideDeck
+    .map(cardId => cards.find(c => c.id === cardId))
+    .filter(card => card)
+    .sort((a, b) => typeOrder[a.type] - typeOrder[b.type]);
+
     
     for (let i = 0; i < 3; i++) {
         const x = startX + i * (cardWidth + gapX);
         const y = sideStartY;
-        if (sideDeck[i]) {
-            const card = cards.find(c => c.id === sideDeck[i]);
+        if (sortedSideDeck[i]) {
+            const card = sortedSideDeck[i];
             if (card) {
                 const img = await loadImage(card.image);
                 drawCardShadow(ctx, x, y, cardWidth, cardHeight);
@@ -1204,7 +1216,7 @@ if (qrCanvas) {
     // ロゴ
     // ==========================
     const logo = await loadImage("images/grimoire.png");
-    ctx.drawImage(logo, 450, 630, 182, 49);
+    ctx.drawImage(logo, 450, 635, 182, 49);
     // ==========================
     // 出力
     // ==========================
@@ -1516,7 +1528,10 @@ function generateQRCodeAsync() {
         QRCode.toCanvas(
             canvas,
             json,
-            { width: 250 },
+            { width: 400,
+                errorCorrectionLevel:"H",
+                margin:2
+             },
             (error) => {
                 if (error) console.error(error);
                 resolve(canvas); // ←ここ重要
@@ -1649,6 +1664,58 @@ function loadDeckFromQR(json) {
     alert("QRからデッキを読み込みました");
 }
 
+async function tryReadQRCode(img) {
+    const patterns = [
+        { filter: "none", scale: 1 },
+        { filter: "contrast(180%)", scale: 1 },
+        { filter: "grayscale(100%) contrast(220%)", scale: 1 },
+        { filter: "grayscale(100%) contrast(220%)", scale: 2 }
+    ];
+    for (const p of patterns) {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = img.width * p.scale;
+        canvas.height = img.height * p.scale;
+        ctx.filter = p.filter;
+        ctx.drawImage(
+            img,
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+        const imageData = ctx.getImageData(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+        const code = jsQR(
+            imageData.data,
+            imageData.width,
+            imageData.height
+        );
+        if (code) {
+            return code;
+        }
+        // UIを固めないために少し待つ
+        await new Promise(resolve => setTimeout(resolve, 0));
+    }
+    // ---------- jsQRが全部失敗したらZXing ----------
+    try {
+        const reader = new ZXing.BrowserQRCodeReader();
+        const result =
+        await reader.decodeFromImageElement(img);
+        if (result) {
+            return {
+                data: result.getText()
+            };
+        }
+    } catch (e) {
+        // 読めなかっただけ
+        }
+        return null;
+}
 
 
 document.getElementById("qr-image-input")
@@ -1659,23 +1726,9 @@ document.getElementById("qr-image-input")
     const reader = new FileReader();
     reader.onload = function () {
         const img = new Image();
-        img.onload = function () {
-            // 🟢キャンバス化
-            const canvas = document.createElement("canvas");
-            const ctx = canvas.getContext("2d");
-            canvas.width = img.width;
-            canvas.height = img.height;
-            ctx.drawImage(img, 0, 0);
-            const imageData = ctx.getImageData(
-                0, 0,
-                canvas.width,
-                canvas.height
-            );
-            const code = jsQR(
-                imageData.data,
-                canvas.width,
-                canvas.height
-            );
+        img.onload = async function () {
+            const code = await tryReadQRCode(img);
+            
             // 🟢ここが重要（1回だけ処理）
             if (alreadyHandled) return;
             alreadyHandled = true;
