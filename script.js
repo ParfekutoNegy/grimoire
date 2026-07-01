@@ -1,5 +1,4 @@
- 
-function displayCards(){
+ function displayCards(){
     const keyword =
     document.getElementById("search")
     .value
@@ -9,12 +8,12 @@ function displayCards(){
     const cardArea =
     document.getElementById("card-area");
     cardArea.innerHTML = "";
-    
+   
     const checkedElements =
     Array.from(
         document.querySelectorAll(".elementFilter:checked")
     ).map(box => box.value);
-    
+   
     const checkedTypes =
     Array.from(
         document.querySelectorAll(".typeFilter:checked")
@@ -61,7 +60,7 @@ function displayCards(){
         ){
             continue
         }
-            
+           
         cardArea.innerHTML += `
         <div class="card"
         data-id="${card.id}"
@@ -69,7 +68,7 @@ function displayCards(){
         <img
         src="${card.image}"
         onclick="openCardModal('${card.id}')"
-        oncontextmenu="removeCard('${card.id}'); return false;">       
+        oncontextmenu="removeCard('${card.id}'); return false;">      
         </div>
         `;
     }
@@ -106,7 +105,7 @@ function updateDeck(){
         )
     )
     .filter(card => card)
-    
+   
 
     for(let cardData of deckCards){
         total ++;
@@ -273,7 +272,7 @@ function searchCards(){
         name.includes(keyword)
         ? "inline-block"
         : "none";
-    } 
+    }
 }
 
 
@@ -298,7 +297,8 @@ function autoSaveDeck(){
         name: deckName,
         main:[...mainDeck],
         side:[...sideDeck],
-        candidate:[...candidateCards]
+        candidate:[...candidateCards],
+        updatedAt:Date.now()
     };
     localStorage.setItem(
         "decks",
@@ -350,11 +350,14 @@ function updateDeckList(){
     JSON.parse(
         localStorage.getItem("decks")
     ) || {};
-    deckList.innerHTML = "";
-    for(let deckId in decks){
 
-        const deckData =
-        decks[deckId];
+    deckList.innerHTML = "";
+    const sortedDecks = Object.values(decks).sort(
+        (a,b) => (b.updatedAt || 0) - (a.updatedAt || 0)
+    );
+    for (const deckData of sortedDecks){
+        const deckId = deckData.id;
+
 
         const displayName =
         deckData.name;
@@ -363,13 +366,13 @@ function updateDeckList(){
         deckData.main?.[0];
         if(firstCardId === undefined){
             continue;
-        } 
+        }
 
-        const cardData = 
+        const cardData =
         cards.find(
             c => c.id === firstCardId
         );
-        const imagePath = 
+        const imagePath =
         cardData
         ? cardData.image
         :"images/noimage.jpg";
@@ -413,7 +416,7 @@ function loadSavedDeck(deckId){
     JSON.parse(
         localStorage.getItem("decks")
     )||{};
-    
+   
     const savedDeck =
     decks[deckId];
 
@@ -431,7 +434,7 @@ function loadSavedDeck(deckId){
     mainDeck.push(
         ...savedDeck.main
     );
-    
+   
     sideDeck.push(
         ...savedDeck.side
     );
@@ -456,7 +459,7 @@ function deleteDeck(deckId){
     if(!confirm("このデッキを削除しますか？")){
         return;
     }
-    let decks = 
+    let decks =
     JSON.parse (localStorage.getItem("decks"))||{};
     delete decks[deckId];
     localStorage.setItem(
@@ -1167,7 +1170,7 @@ async function exportDeckImage(){
     .filter(card => card)
     .sort((a, b) => typeOrder[a.type] - typeOrder[b.type]);
 
-    
+   
     for (let i = 0; i < 3; i++) {
         const x = startX + i * (cardWidth + gapX);
         const y = sideStartY;
@@ -1373,6 +1376,28 @@ function createNewDeck(){
     showBuilderScreen();
 }
 
+function getImportedDeckName(baseName){
+    const decks =
+    JSON.parse(
+        localStorage.getItem("decks")
+    ) || {};
+    let number = 1;
+    while(true){
+        const name =
+        number === 1
+        ? `${baseName}（読み込み）`
+        : `${baseName}（読み込み${number}）`;
+        const exists =
+        Object.values(decks).some(
+            deck => deck.name === name
+        );
+        if(!exists){
+            return name;
+        }
+        number++;
+    }
+}
+
 function showDeckImagePage(){
     document.getElementById(
         "deck-list-screen"
@@ -1409,7 +1434,8 @@ function copyDeckData(deckId){
         name: getCopyDeckName(original.name),
         main: [...original.main],
         side: [...original.side],
-        candidate: [...original.candidate]
+        candidate: [...original.candidate],
+        updatedAt: Date.now()
     };
     localStorage.setItem(
         "decks",
@@ -1655,12 +1681,16 @@ function loadDeckFromQR(json) {
     }
     // デッキ名
     document.getElementById("deck-name").value =
-        (data.name || "読み込みデッキ") + "（読み込み）";
+    getImportedDeckName(
+        data.name || "読み込みデッキ"
+    );
     // 画面更新
     updateDeck();
     updateCandidateArea();
+    //新規デッキとして保存
+    autoSaveDeck
     // 編集画面へ
-    showBuilderScreen();
+    /*showBuilderScreen();*/
     alert("QRからデッキを読み込みました");
 }
 
@@ -1728,7 +1758,7 @@ document.getElementById("qr-image-input")
         const img = new Image();
         img.onload = async function () {
             const code = await tryReadQRCode(img);
-            
+           
             // 🟢ここが重要（1回だけ処理）
             if (alreadyHandled) return;
             alreadyHandled = true;
@@ -1742,3 +1772,4 @@ document.getElementById("qr-image-input")
     };
     reader.readAsDataURL(file);
 });
+
