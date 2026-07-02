@@ -1,4 +1,4 @@
- function displayCards(){
+function displayCards(){
     const keyword =
     document.getElementById("search")
     .value
@@ -1547,26 +1547,13 @@ function generateQRCodeAsync() {
     return new Promise((resolve) => {
         const deckData = createDeckData();
         const json = JSON.stringify(deckData);
-        // デッキデータをURL用に変換
-        const encoded =
-        encodeURIComponent(
-            btoa(
-                unescape(
-                    encodeURIComponent(json)
-                )
-            )
-        );
-        // QRに入れる文字列
-        const qrText =
-        "https://parfekutonegy.github.io/grimoire/?deck="
-
         const qrArea = document.getElementById("qr-preview");
         qrArea.innerHTML = "";
         const canvas = document.createElement("canvas");
         qrArea.appendChild(canvas);
         QRCode.toCanvas(
             canvas,
-            qrText,
+            json,
             { width: 400,
                 errorCorrectionLevel:"H",
                 margin:2
@@ -1701,7 +1688,7 @@ function loadDeckFromQR(json) {
     updateDeck();
     updateCandidateArea();
     //新規デッキとして保存
-    autoSaveDeck()
+    autoSaveDeck();
     // 編集画面へ
     /*showBuilderScreen();*/
     alert("QRからデッキを読み込みました");
@@ -1786,29 +1773,3 @@ document.getElementById("qr-image-input")
     reader.readAsDataURL(file);
 });
 
-window.addEventListener("load", () => {
-    const params =
-        new URLSearchParams(location.search);
-    const deck =
-        params.get("deck");
-    if(!deck){
-        return;
-    }
-    try{
-        const json =
-        decodeURIComponent(
-            escape(
-                atob(deck)
-            )
-        );
-        loadDeckFromQR(json);
-        // URLを元に戻す
-        history.replaceState(
-            {},
-            "",
-            location.pathname
-        );
-    }catch(e){
-        alert("デッキデータを読み込めませんでした");
-    }
-});
