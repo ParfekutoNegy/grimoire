@@ -1092,6 +1092,8 @@ function initCanvas(canvas, width = 700, height = 700) {
 
 async function exportDeckImage(){
     const canvas = document.getElementById("deck-canvas");
+    const preview = document.getElementById("preview");
+    preview.removeAttribute("src");
     // ★ここだけ変更（重要）
     const ctx = initCanvas(canvas, 700, 700);
     const cardWidth = 110;
