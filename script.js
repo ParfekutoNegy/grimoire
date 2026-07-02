@@ -1558,10 +1558,7 @@ function generateQRCodeAsync() {
         );
         // QRに入れる文字列
         const qrText =
-        location.origin +
-        location.pathname +
-        "?deck=" +
-        encoded;
+        "https://parfekutonegy.github.io/grimoire/?deck="
 
         const qrArea = document.getElementById("qr-preview");
         qrArea.innerHTML = "";
