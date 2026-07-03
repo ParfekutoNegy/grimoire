@@ -1,4 +1,4 @@
-function displayCards(){
+ function displayCards(){
     const keyword =
     document.getElementById("search")
     .value
@@ -1091,9 +1091,10 @@ function initCanvas(canvas, width = 700, height = 700) {
 }
 
 async function exportDeckImage(){
-    const canvas = document.getElementById("deck-canvas");
     const preview = document.getElementById("preview");
     preview.removeAttribute("src");
+
+    const canvas = document.getElementById("deck-canvas");
     // ★ここだけ変更（重要）
     const ctx = initCanvas(canvas, 700, 700);
     const cardWidth = 110;
@@ -1330,7 +1331,7 @@ function toggleDeckPin(){
             "deck-pinned"
         );
         btn.textContent =
-        "📌";
+        "📍";
     }else{
         area.classList.remove(
             "deck-pinned"
@@ -1338,7 +1339,7 @@ function toggleDeckPin(){
         spacer.style.display =
         "none";
         btn.textContent =
-        "📍";
+        "📌";
     }
 }
 
@@ -1387,8 +1388,8 @@ function getImportedDeckName(baseName){
     while(true){
         const name =
         number === 1
-        ? `${baseName}（読み込み）`
-        : `${baseName}（読み込み${number}）`;
+        ? `${baseName}📖`
+        : `${baseName}📖${number}`;
         const exists =
         Object.values(decks).some(
             deck => deck.name === name
@@ -1452,7 +1453,7 @@ function copyDeckData(deckId){
 
 
 function getCopyDeckName(baseName){
-    baseName = baseName.replace(/ コピー\d*$/,"");
+    baseName = baseName.replace(/ 📄\d*$/,"");
     const decks =
     JSON.parse(
         localStorage.getItem("decks")
@@ -1461,8 +1462,8 @@ function getCopyDeckName(baseName){
     while(true){
         const name =
         number === 1
-        ? `${baseName} コピー`
-        : `${baseName} コピー${number}`;
+        ? `${baseName} 📄`
+        : `${baseName} 📄${number}`;
         const exists =
         Object.values(decks).some(
             deck => deck.name === name
@@ -1775,3 +1776,25 @@ document.getElementById("qr-image-input")
     reader.readAsDataURL(file);
 });
 
+const deckName = document.getElementById("deck-name");
+deckName.addEventListener("focus", () => {
+    // 編集中スタイル
+    deckName.classList.add("editing");
+    // 全選択
+    deckName.select();
+});
+deckName.addEventListener("blur", () => {
+    // 元に戻す
+    deckName.classList.remove("editing");
+});
+
+const overlay = document.getElementById("deck-name-overlay");
+deckName.addEventListener("focus", () => {
+    deckName.classList.add("editing");
+    overlay.classList.add("show");
+    deckName.select();
+});
+deckName.addEventListener("blur", () => {
+    deckName.classList.remove("editing");
+    overlay.classList.remove("show");
+});
