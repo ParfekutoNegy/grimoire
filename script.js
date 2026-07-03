@@ -1798,3 +1798,11 @@ deckName.addEventListener("blur", () => {
     deckName.classList.remove("editing");
     overlay.classList.remove("show");
 });
+
+function pressButton(button, callback){
+    button.classList.add("pressed");
+    setTimeout(() => {
+        button.classList.remove("pressed");
+        callback();
+    }, 120);
+}
