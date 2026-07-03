@@ -13,7 +13,12 @@
 <!-- =========================
      デッキ一覧画面
 ========================= -->
+
+
 <div id="deck-list-screen">
+    <div id="title">
+        <h1>✦─── GRIMOIRE ───✦</h1>
+    </div>
     <div id="saved-decks"></div>
     <div class="floating-buttons">
     <button
@@ -93,7 +98,6 @@
 
 <!-- =========================
      編集画面（builder-screen）
-     ↓ Part2 から続きます
 ========================= -->
 
 
@@ -269,6 +273,7 @@
     <!-- カード詳細 -->
     <div id="card-modal" class="card-modal">
         <div class="card-modal-content">
+            <div class="fake-close">×</div>
             <img
                 id="modal-card-image"
                 class="modal-card-image"
@@ -295,6 +300,7 @@
             </button>
         </div>
     </div>
+    <div id="deck-name-overlay"></div>
 </div>
 <!-- builder-screen 終了 -->
 <script src="cards.js"></script>
@@ -302,7 +308,6 @@
 <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 <script src="https://unpkg.com/html5-qrcode"></script>
 <script src="https://unpkg.com/jsqr/dist/jsQR.js"></script>
-<script src="https://unpkg.com/@zwing/library@latest"></script>
 </body>
 </html>
 
