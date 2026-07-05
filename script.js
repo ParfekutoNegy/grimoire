@@ -1660,10 +1660,19 @@ deckName.addEventListener("blur", () => {
     overlay.classList.remove("show");
 });
 
-function pressButton(button, callback){
+document.querySelectorAll("button").forEach(button=>{
+    button.addEventListener("pointerdown",()=>{
+        pressButton(button);
+    });
+});
+
+function pressButton(button){
+    if(!button) return;
+    button.classList.remove("pressed");
+    // 再付与できるようリフロー
+    void button.offsetWidth;
     button.classList.add("pressed");
-    setTimeout(() => {
+    setTimeout(()=>{
         button.classList.remove("pressed");
-        callback();
-    }, 150);
+    },150);
 }
