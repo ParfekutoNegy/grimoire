@@ -66,7 +66,6 @@ div {
     0 5px 12px rgba(0,0,0,0.28),
 }
 
-
 #main-deck-section{
     margin-bottom:15px;
 }
@@ -123,32 +122,6 @@ div {
     font-size:30px;
 }
 
-
-
-
-.deck-slot{
-    border:1px solid #666;
-    min-height:120px;
-    background:#f5f5f5;
-}
-
-
-
-
-.deck-panel{
-    min-width: 250px;
-    background:
-    radial-gradient(circle at 20% 25%, rgba(120,90,40,.04), transparent 25%),
-    radial-gradient(circle at 80% 80%, rgba(0,0,0,.03), transparent 20%),
-    #f2ead6;
-    border: 2px solid #8b7853;
-    border-radius: 12px;
-    padding:15px;
-    box-shadow:
-    inset 0 0 20px rgba(0,0,0,0.06),
-    0 4px 12px rgba(0,0,0,0.15)
-}
-
 #card-area{
     display: grid;
     grid-template-columns:repeat(4,1fr);
@@ -195,6 +168,7 @@ button{
         filter .15s,
         box-shadow .15s;
 }
+
 button:active{
     transform:translateY(2px) scale(.96);
     filter:brightness(.88);
@@ -210,8 +184,6 @@ button.pressed{
         0 1px 2px rgba(0,0,0,.15);
 }
 
-
-
 .button:hover{
     background:linear-gradient(
         to bottom,
@@ -219,12 +191,12 @@ button.pressed{
         #66563a
     );
 }
+
 .button:active{
     transform:translateY(2px);
     box-shadow:
         inset 0 3px 6px rgba(0,0,0,.25);
 }
-
 
 #seriesFilter{
     width:500px;
@@ -235,7 +207,6 @@ button.pressed{
     border:2px solid#8b7853;
     color:#3a3326
 }
-
 
 input[type="text"]{
     padding:8px;
@@ -250,10 +221,6 @@ input[type="text"]{
         inset 0 2px 4px rgba(0,0,0,.08);
 }
 
-
-
-
-
 @media (max-width: 768px){
     .main-layout{
         flex-direction: colum;
@@ -263,7 +230,6 @@ input[type="text"]{
     }
 }
 
-
 .elementButton{
     display:inline-block;
     margin:60px;
@@ -272,7 +238,6 @@ input[type="text"]{
 .elementButton input{
     display:none;
 }
-
 
 .elementButton span{
     display:flex;
@@ -298,8 +263,6 @@ input[type="text"]{
     drop-shadow(0 0 3px rgba(255,255,0.4))
 
 }
-
-
 
 .elementButton input:checked + span{
     background:linear-gradient(
@@ -331,7 +294,6 @@ input[type="text"]{
     display:none;
 }
 
-
 .typeButton input:checked + span{
     transform: scale(1.08) translateY(-2px);
     box-shadow:
@@ -341,8 +303,6 @@ input[type="text"]{
     text-shadow:
         0 2px 4px rgba(0,0,0,0.8);
 }
-
-
 
 .typeButton input[value="サモン"]:checked + span{
     background:
@@ -368,7 +328,6 @@ input[type="text"]{
     color:white;
 }
 
-
 .typeButton input[value="レジスト"]:checked + span{
     background:
         linear-gradient(
@@ -380,7 +339,6 @@ input[type="text"]{
     background-position:center;
     color:white;
 }
-
 
 .typeButton span{
     display:inline-block;
@@ -396,7 +354,6 @@ input[type="text"]{
     transition:.15s;
 }
 
-
 .typeButton input:checked + span{
     background:linear-gradient(
         to bottom,
@@ -407,7 +364,6 @@ input[type="text"]{
     border-color:#3f3624;
 }
 
-
 .costButton{
     display:inline-block;
     margin:10px;
@@ -416,7 +372,6 @@ input[type="text"]{
 .costButton input{
     display:none;
 }
-
 
 .costButton span{
     display:inline-block;
@@ -432,7 +387,6 @@ input[type="text"]{
     transition:.15s;
 }
 
-
 .costButton input:checked + span{
     transform: scale(1.08) translateY(-2px);
     background:linear-gradient(
@@ -446,8 +400,6 @@ input[type="text"]{
     color:#f7f2e8;
     border-color:#3f3624;
 }
-
-
 
 @media(max-width:768px){
     #main-deck{
@@ -549,8 +501,6 @@ input[type="text"]{
     0 4px 10px rgba(0,0,0,.15);
 }
 
-
-
 .saved-deck-thumbnail{
     width:100%;
     height:auto;
@@ -562,12 +512,10 @@ input[type="text"]{
     0 3px 8px rgba(0,0,0,.25);
 }
 
-
 #deck-list-screen{
     padding-bottom:90px;
     box-sizing:border-box;
 }
-
 
 .saved-deck-name{
     margin-top:10px;
@@ -576,8 +524,6 @@ input[type="text"]{
     color:#4b3d28;
     letter-spacing:1px;
 }
-
-
 
 .saved-deck-buttons{
     margin-top:10px;
@@ -589,8 +535,6 @@ input[type="text"]{
 .saved-deck-buttons button{
     padding:8px 12px;
 }
-
-
 
 .card-modal{
     display:none;
@@ -604,12 +548,14 @@ input[type="text"]{
     align-items:center;
     z-index:9999;
 }
+
 .card-modal-content{
     display:flex;
     flex-direction:column;
     align-items:center;
     gap:10px;
 }
+
 .modal-card-image{
     border-radius: 25px;
     width:90vw;
@@ -677,21 +623,6 @@ input[type="text"]{
     white-space:nowrap;
 }
 
-.deck-toolbar{
-    background:
-    radial-gradient(circle at 20% 25%, rgba(120,90,40,.04), transparent 25%),
-    radial-gradient(circle at 80% 80%, rgba(0,0,0,.03), transparent 20%),
-    #f2ead6;
-    border:2px solid #8b7853;
-    border-radius:12px;
-    padding:12px;
-    margin-bottom:15px;
-}
-.deck-toolbar-title{
-    font-weight:bold;
-    margin-bottom:8px;
-}
-
 .deck-name-input{
     width:100%;
     box-sizing:border-box;
@@ -733,21 +664,9 @@ input[type="text"]{
     background:rgba(0,0,0,.45);
     z-index:9998;
 }
+
 #deck-name-overlay.show{
     display:block;
-}
-
-
-
-
-
-
-.deck-toolbar-buttons{
-    display:flex;
-    gap:8px;
-}
-.deck-toolbar-buttons button{
-    flex:1;
 }
 
 #search{
@@ -768,7 +687,6 @@ input[type="text"]{
     margin-left:200px;
 }
 
-
 .deck-pinned{
     position:fixed;
     top:0;
@@ -786,12 +704,9 @@ input[type="text"]{
     border-bottom:2px solid #8b7853;
 }
 
-
-
 #main-deck-spacer{
     display:none;
 }
-
 
 #candidate-area{
     display:grid;
@@ -854,6 +769,7 @@ h3{
     box-shadow:0 8px 18px rgba(0,0,0,.45);
     transition:.2s;
 }
+
 .floating-btn:hover{
     transform:scale(1.08);
 }
@@ -963,18 +879,6 @@ h3{
     text-decoration:underline;
 }
 
-
-
-.homepage-button{
-    padding:12px 24px;
-    border-radius:10px;
-    background:linear-gradient(to bottom,#c7a85d,#9d7a2d);
-    color:white;
-    text-decoration:none;
-    font-weight:bold;
-    box-shadow:0 3px 8px rgba(0,0,0,.3);
-}
-
 .fake-close{
     position:absolute;
     top:9.5%;
@@ -1007,5 +911,3 @@ h3{
         0 2px 3px rgba(0,0,0,.6),
         0 0 8px rgba(255,220,120,.25);
 }
-
-   
