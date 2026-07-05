@@ -77,10 +77,8 @@
 let mainDeck =[];
 let sideDeck =[];
 let candidateCards = [];
-
 let currentDeckId = null;
 let isLoadingDeck = false;
-
 
 function updateDeck(){
     const mainDeckArea=
@@ -106,7 +104,6 @@ function updateDeck(){
     )
     .filter(card => card)
    
-
     for(let cardData of deckCards){
         total ++;
         const wrapper =
@@ -250,7 +247,6 @@ while(sideCount < 3){
 autoSaveDeck();
 }
 
-
 function removeCard(cardName){
     const index =
     mainDeck.indexOf(cardName);
@@ -260,21 +256,6 @@ function removeCard(cardName){
     mainDeck.splice(index,1);
     updateDeck();
 }
-
-function searchCards(){
-    const keyword =
-    document.getElementById("search").value;
-    const cardElements =
-    document.querySelectorAll(".card");
-    for (let card of cardElements){
-        const name = card.dataset.name;
-        card.style.display =
-        name.includes(keyword)
-        ? "inline-block"
-        : "none";
-    }
-}
-
 
 function autoSaveDeck(){
     if (isLoadingDeck) return; // ★追加
@@ -307,10 +288,6 @@ function autoSaveDeck(){
     updateDeckList();
 }
 
-
-
-
-
 function clearDeck(){
     if(currentDeckId){
         let decks =
@@ -337,11 +314,9 @@ function addCard(cardId){
     sortMainDeck();
 }
 
-
 displayCards();
 updateDeckList();
 showDeckListScreen();
-
 
 function updateDeckList(){
     const deckList =
@@ -406,10 +381,6 @@ function updateDeckList(){
     }
 }
 
-
-
-
-
 function loadSavedDeck(deckId){
     isLoadingDeck = true;
     const decks =
@@ -472,14 +443,11 @@ function deleteDeck(deckId){
 
 }
 
-
 function showDeckListScreen() {
     document.getElementById("deck-list-screen").style.display = "block";
     document.getElementById("builder-screen").style.display = "none";
     document.getElementById("deck-image-screen").style.display = "none";
 }
-
-
 
 function showBuilderScreen(){
     document.getElementById(
@@ -492,9 +460,6 @@ function showBuilderScreen(){
         "builder-screen"
     ).style.display = "block";
 }
-
-
-
 
 function openFilterModal(){
     document.getElementById("filter-modal").style.display="block";    
@@ -817,11 +782,6 @@ function addToCandidate(){
     }
 }
 
-
-
-
-
-
 function showCandidates(){
     const area =
     document.getElementById("candidate-area");
@@ -835,7 +795,6 @@ function showCandidates(){
         btn.textContent = "検討中カードを表示";
     }
 }
-
 
 function updateCandidateArea(){
     const area =
@@ -867,8 +826,6 @@ function updateCandidateArea(){
         `;
     }
 }
-
-
 
 function removeSelectedCard(){
     if(modalSource === "side"){
@@ -908,10 +865,6 @@ function removeSelectedCard(){
     closeCardModal();
 }
 
-function isCardInMain(cardId){
-    return mainDeck.includes(cardId);
-}
-
 function hasSameName(deckArray, cardName){
     return deckArray.some(id => {
         const card =
@@ -931,9 +884,6 @@ function removeSameNameEverywhere(cardName){
         cards.find(c => c.id === id)?.name !== cardName
     );
 }
-
-
-
 
 function isCardUsed(cardId){
     const card =
@@ -1006,7 +956,6 @@ function moveCardDown(cardId){
     updateDeck();
 }
 
-
 function createDeckData(){
     const deckName =
     document.getElementById(
@@ -1018,62 +967,6 @@ function createDeckData(){
         main: [...mainDeck],
         side: [...sideDeck]
     };
-}
-
-function testDeckData(){
-    const deckData =
-    createDeckData();
-    alert(
-        JSON.stringify(
-            deckData,
-            null,
-            2
-        )
-    );
-}
-
-function generateQRCode(){
-    const deckData =
-    createDeckData();
-    const json =
-    JSON.stringify(deckData);
-    const qrArea =
-    document.getElementById(
-        "qr-preview"
-    );
-    qrArea.innerHTML = "";
-    const canvas =
-    document.createElement("canvas");
-    qrArea.appendChild(canvas);
-    const ctx = canvas.getContext("2d");
-    QRCode.toCanvas(
-        canvas,
-        json,
-        {
-            width: 400,
-            errorCorrectionLevel:"H",
-            margin:2
-        },
-        function(error){
-            if(error){
-                console.error(error);
-            }
-        }
-    );
-}
-
-function setupCanvas(canvas, baseWidth = 700, baseHeight = 700) {
-    const ctx = canvas.getContext("2d");
-    const dpr = window.devicePixelRatio || 2;
-    canvas.width = baseWidth * dpr;
-    canvas.height = baseHeight * dpr;
-    canvas.style.width = baseWidth + "px";
-    canvas.style.height = baseHeight + "px";
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.scale(dpr, dpr);
-    ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = "high";
-    return ctx;
 }
 
 function initCanvas(canvas, width = 700, height = 700) {
@@ -1119,7 +1012,6 @@ async function exportDeckImage(){
     ctx.strokeStyle = "#5d411d";
     ctx.lineWidth = 10;
     ctx.strokeRect(10, 10, 680, 680);
-
 
     // ==========================
     // カード裏面
@@ -1172,8 +1064,7 @@ async function exportDeckImage(){
     .map(cardId => cards.find(c => c.id === cardId))
     .filter(card => card)
     .sort((a, b) => typeOrder[a.type] - typeOrder[b.type]);
-
-   
+ 
     for (let i = 0; i < 3; i++) {
         const x = startX + i * (cardWidth + gapX);
         const y = sideStartY;
@@ -1250,7 +1141,6 @@ if (qrCanvas) {
 }
 }
 
-
 function loadImage(src){
     return new Promise(
         (resolve,reject)=>{
@@ -1265,7 +1155,6 @@ function loadImage(src){
         }
     );
 }
-
 
 function resetFilters(){
 
@@ -1297,14 +1186,9 @@ function resetFilters(){
         "seriesFilter"
     ).value = "";
     displayCards();
-    searchCards();
 }
 
-
-
 let deckPinned = false;
-
-
 
 function toggleDeckPin(){
     const area =
@@ -1365,7 +1249,6 @@ function getNewDeckName(){
     }
 }
 
-
 function createNewDeck(){
     currentDeckId = null;
     mainDeck.length = 0;
@@ -1419,8 +1302,6 @@ function showDeckImageFromList(deckId){
     showDeckImagePage();
 }
 
-
-
 function copyDeckData(deckId){
     if(!confirm("このデッキを複製しますか？")) {
         return;
@@ -1447,10 +1328,6 @@ function copyDeckData(deckId){
     updateDeckList();
     alert("デッキを複製しました");
 }
-
-
-
-
 
 function getCopyDeckName(baseName){
     baseName = baseName.replace(/ 📄\d*$/,"");
@@ -1509,8 +1386,6 @@ function drawRoundedImage(ctx, img, x, y, w, h, r) {
     ctx.restore();
 }
 
-
-
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
         navigator.serviceWorker.register("./sw.js")
@@ -1523,7 +1398,6 @@ if ("serviceWorker" in navigator) {
     });
 }
 
-
 function saveImage(blob, deckName, imageURL) {
     const fileName = `${deckName || "deck"}.png`;
     const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
@@ -1535,7 +1409,6 @@ function saveImage(blob, deckName, imageURL) {
     // PC / Androidはダウンロード
     downloadImage(imageURL, fileName);
 }
-
 
 function downloadImage(imageURL, fileName) {
     const a = document.createElement("a");
@@ -1568,16 +1441,6 @@ function generateQRCodeAsync() {
         );
     });
 }
-
-function returnToBuilderScreen(){
-    document.getElementById("deck-image-screen").style.display = "none";
-    document.getElementById("builder-screen").style.display = "block";
-}
-
-function forceReturnScreen(){
-    showBuilderScreen();
-}
-
 
 function drawQRFrame(ctx, x, y, size) {
     // 外枠（濃い古書色）
@@ -1643,7 +1506,6 @@ function roundRect(ctx, x, y, w, h, r) {
     ctx.quadraticCurveTo(x, y, x + r, y);
     ctx.closePath();
 }
-
 
 function loadDeckFromQR(json) {
     let data;
@@ -1750,7 +1612,6 @@ async function tryReadQRCode(img) {
         return null;
 }
 
-
 document.getElementById("qr-image-input")
 .addEventListener("change", async (e) => {
     const file = e.target.files[0];
@@ -1804,5 +1665,5 @@ function pressButton(button, callback){
     setTimeout(() => {
         button.classList.remove("pressed");
         callback();
-    }, 120);
+    }, 150);
 }
