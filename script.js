@@ -1,4 +1,4 @@
- function displayCards(){
+function displayCards(){
     const keyword =
     document.getElementById("search")
     .value
