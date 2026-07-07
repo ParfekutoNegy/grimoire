@@ -438,9 +438,6 @@ function deleteDeck(deckId){
         JSON.stringify(decks)
     );
     updateDeckList();
-    alert("削除しました");
-
-
 }
 
 function showDeckListScreen() {
