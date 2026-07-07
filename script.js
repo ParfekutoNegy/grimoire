@@ -1323,7 +1323,6 @@ function copyDeckData(deckId){
         JSON.stringify(decks)
     );
     updateDeckList();
-    alert("デッキを複製しました");
 }
 
 function getCopyDeckName(baseName){
