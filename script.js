@@ -441,6 +441,7 @@ function deleteDeck(deckId){
 }
 
 function showDeckListScreen() {
+    resetFilters();
     document.getElementById("deck-list-screen").style.display = "block";
     document.getElementById("builder-screen").style.display = "none";
     document.getElementById("deck-image-screen").style.display = "none";
@@ -1247,6 +1248,7 @@ function getNewDeckName(){
 }
 
 function createNewDeck(){
+    resetFilters();
     currentDeckId = null;
     mainDeck.length = 0;
     sideDeck.length = 0;
@@ -1282,6 +1284,7 @@ function getImportedDeckName(baseName){
 }
 
 function showDeckImagePage(){
+    resetFilters();
     document.getElementById(
         "deck-list-screen"
     ).style.display = "none";
