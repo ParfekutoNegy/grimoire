@@ -12,19 +12,14 @@
      デッキ一覧画面
 ========================= -->
 
-
 <div id="deck-list-screen">
     <div id="title">
         <h1>✦─── GRIMOIRE ───✦</h1>
     </div>
+    
     <div id="saved-decks"></div>
     <div class="floating-buttons">
-    <button
-        id="qr-load-button"
-        class="floating-btn"
-        onclick="document.getElementById('qr-image-input').click()">
-        📖
-    </button>
+
     <input
         type="file"
         id="qr-image-input"
@@ -35,8 +30,16 @@
         class="floating-btn"
         onclick="createNewDeck()">
         ✒️
-    </button></div>
-    
+    </button>
+
+    <button
+        id="qr-load-button"
+        class="floating-btn"
+        onclick="document.getElementById('qr-image-input').click()">
+        📖
+    </button>
+    </div>
+
     <div id="homepage-footer">
         最新情報・ルールはこちら ▶
         <a href="https://elementissummoner.webnode.jp/" target="_blank">
