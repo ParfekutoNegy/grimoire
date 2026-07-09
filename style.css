@@ -12,7 +12,10 @@ body{
     background-attachment:fixed;
 }
 
-img 
+img {
+    width: 100%;
+    border-radius: 25px;
+}
 
 div {
     margin: 10px;
